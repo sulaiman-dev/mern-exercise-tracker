@@ -15,12 +15,20 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
+  dbName: "exercise-tracker",
 });
 const connection = mongoose.connection;
-connection.once("open", () => {
-  console.log(
-    "MongoDB database connection established successfully"
-  );
+// connection.once("open", () => {
+//   console.log(
+//     "MongoDB database connection established successfully"
+//   );
+// });
+connection.on(
+  "error",
+  console.error.bind(console, "MongoDB connection error:")
+);
+connection.once("open", function (err, resp) {
+  console.log("MongoDB database connection established successfully.");
 });
 
 const exercisesRouter = require("./routes/exercises");

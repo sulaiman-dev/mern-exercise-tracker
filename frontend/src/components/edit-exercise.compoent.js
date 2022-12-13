@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import { withRouter } from "./utils/withRouter";
 
-export default class EditExercise extends Component {
+class EditExercise extends Component {
   constructor(props) {
     super(props);
 
@@ -24,7 +25,7 @@ export default class EditExercise extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/exercises/" + this.props.match.params.id)
+      .get("http://localhost:5000/exercises/" + this.props?.params?.id)
       .then((response) => {
         this.setState({
           username: response.data.username,
@@ -81,7 +82,7 @@ export default class EditExercise extends Component {
     };
     axios
       .post(
-        "http://localhost:5000/exercises/update/" + this.props.match.params.id,
+        "http://localhost:5000/exercises/update/" + this.props?.params?.id,
         exercise
       )
       .then((res) => {
@@ -99,7 +100,6 @@ export default class EditExercise extends Component {
           <div className="form-group">
             <label>Username: </label>
             <select
-              ref="userInput"
               className="form-control"
               value={this.state.username}
               onChange={this.onChangeUsername}
@@ -152,3 +152,5 @@ export default class EditExercise extends Component {
     );
   }
 }
+
+export default withRouter(EditExercise);

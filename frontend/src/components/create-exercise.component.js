@@ -81,7 +81,6 @@ export default class CreateExercise extends Component {
           <div className="form-group">
             <label>Username:</label>
             <select
-              ref="userInput"
               required
               className="form-control"
               value={this.state.username}

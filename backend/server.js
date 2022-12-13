@@ -13,21 +13,17 @@ app.use(express.json());
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
   useNewUrlParser: true,
-  useCreateIndex: true,
   useUnifiedTopology: true,
   dbName: "exercise-tracker",
 });
+
 const connection = mongoose.connection;
-// connection.once("open", () => {
-//   console.log(
-//     "MongoDB database connection established successfully"
-//   );
-// });
+
 connection.on(
   "error",
   console.error.bind(console, "MongoDB connection error:")
 );
-connection.once("open", function (err, resp) {
+connection.once("open", function () {
   console.log("MongoDB database connection established successfully.");
 });
 

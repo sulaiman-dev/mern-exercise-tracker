@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Button, Container, Input, Text } from "@mantine/core";
 
 export default class createUser extends Component {
   constructor(props) {
@@ -35,28 +36,21 @@ export default class createUser extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Create New User</h3>
+      <Container>
+        <Text fs={30} fw={500}>
+          Create New User
+        </Text>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Username:</label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              onChange={this.onChangeUsername}
-              value={this.state.username}
-            />
-            <div className="form-group">
-              <input
-                type="submit"
-                value="Create User"
-                className="btn btn-primary"
-              />
-            </div>
-          </div>
+          <Input.Label required>Username:</Input.Label>
+          <Input
+            placeholder="Enter Username"
+            required
+            onChange={this.onChangeUsername}
+            value={this.state.username}
+          />
+          <Button>Create Exercise Log</Button>
         </form>
-      </div>
+      </Container>
     );
   }
 }

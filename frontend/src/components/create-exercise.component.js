@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import { Container, Text, Select, Button, Input } from "@mantine/core";
+import { DatePicker } from "@mantine/dates";
 
 export default class CreateExercise extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ export default class CreateExercise extends Component {
   }
   onChangeUsername(e) {
     this.setState({
-      username: e.target.value,
+      username: e,
     });
   }
   onChangeDescription(e) {
@@ -75,64 +75,38 @@ export default class CreateExercise extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Create New Exercise Log</h3>
+      <Container>
+        <Text fs={30} fw={500}>
+          Create New Exercise Log
+        </Text>
         <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Username:</label>
-            <select
-              required
-              className="form-control"
-              value={this.state.username}
-              onChange={this.onChangeUsername}
-            >
-              {this.state.users.map(function (user) {
-                return (
-                  <option key={user} value={user}>
-                    {user}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="form-group">
-            <label>Description:</label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              value={this.state.description}
-              onChange={this.onChangeDescription}
-            />
-          </div>
-          <div className="form-group">
-            <label>Duration (in minute):</label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              value={this.state.duration}
-              onChange={this.onChangeDuration}
-            />
-          </div>
-          <div className="form-group">
-            <label>Date:</label>
-            <div>
-              <DatePicker
-                selected={this.state.date}
-                onChange={this.onChangeDate}
-              />
-            </div>
-          </div>
-          <div className="form-group">
-            <input
-              type="submit"
-              value="Create Exercise Log"
-              className="btn btn-primary"
-            />
-          </div>
+          <Select
+            label="Username:"
+            placeholder="Select User"
+            defaultValue={this.state.users[0]}
+            value={this.state.username}
+            onChange={this.onChangeUsername}
+            data={this.state.users}
+            withAsterisk
+          />
+          <Input.Label required>Description:</Input.Label>
+          <Input
+            placeholder="Description"
+            required
+            value={this.state.description}
+            onChange={this.onChangeDescription}
+          />
+          <Input.Label required>Duration (in minutes):</Input.Label>
+          <Input
+            placeholder="Duration"
+            required
+            value={this.state.duration}
+            onChange={this.onChangeDuration}
+          />
+          <DatePicker placeholder="Pick date" label="Date:" withAsterisk />
+          <Button>Create Exercise Log</Button>
         </form>
-      </div>
+      </Container>
     );
   }
 }

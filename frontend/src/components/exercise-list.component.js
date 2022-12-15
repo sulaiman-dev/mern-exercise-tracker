@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Container, Table, Text } from "@mantine/core";
 
 const Exercise = (props) => (
   <tr>
@@ -11,7 +12,7 @@ const Exercise = (props) => (
     <td>
       <Link to={"/edit/" + props.exercise._id}>edit</Link> |{" "}
       <a
-        href="#"
+        href="/#"
         onClick={() => {
           props.deleteExercise(props.exercise._id);
         }}
@@ -69,10 +70,12 @@ export default class ExercisesList extends Component {
   };
   render() {
     return (
-      <div>
-        <h3>Logged Exercises</h3>
-        <table className="table">
-          <thead className="thead-light">
+      <Container>
+        <Text fw={500} fz="xl">
+          Logged Exercises
+        </Text>
+        <Table>
+          <thead>
             <tr>
               <th>Username</th>
               <th>Description</th>
@@ -82,8 +85,8 @@ export default class ExercisesList extends Component {
             </tr>
           </thead>
           <tbody>{this.exerciseList()}</tbody>
-        </table>
-      </div>
+        </Table>
+      </Container>
     );
   }
 }

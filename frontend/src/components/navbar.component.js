@@ -61,6 +61,9 @@ const useStyles = createStyles((theme) => ({
         .color,
     },
   },
+  mainDiv: {
+    marginTop: 70,
+  },
 }));
 
 const links = [
@@ -94,7 +97,7 @@ export default function Navbar() {
 
   return (
     <>
-      <Header height={60} mb={30}>
+      <Header height={60} mb={30} fixed={true}>
         <Container className={classes.header}>
           <Text>Exercise Tracker</Text>
           <Group spacing={5} className={classes.links}>
@@ -109,7 +112,9 @@ export default function Navbar() {
           />
         </Container>
       </Header>
-      <Outlet />
+      <div className={classes.mainDiv}>
+        <Outlet />
+      </div>
     </>
   );
 }

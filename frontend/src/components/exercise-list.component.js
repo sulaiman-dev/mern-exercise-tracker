@@ -1,27 +1,47 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import axios from "axios";
-import { Container, Table, Text } from "@mantine/core";
+import { ActionIcon, Container, Group, Table, Text } from "@mantine/core";
+import { Edit, Trash } from "tabler-icons-react";
+import { useNavigate } from "react-router-dom";
 
-const Exercise = (props) => (
-  <tr>
-    <td>{props.exercise.username}</td>
-    <td>{props.exercise.description}</td>
-    <td>{props.exercise.duration}</td>
-    <td>{props.exercise.date.substring(0, 10)}</td>
-    <td>
-      <Link to={"/edit/" + props.exercise._id}>edit</Link> |{" "}
-      <a
-        href="/#"
-        onClick={() => {
-          props.deleteExercise(props.exercise._id);
-        }}
-      >
-        delete
-      </a>
-    </td>
-  </tr>
-);
+const Exercise = (props) => {
+  const navigate = useNavigate();
+  return (
+    <tr>
+      <td>{props.exercise.username}</td>
+      <td>{props.exercise.description}</td>
+      <td>{props.exercise.duration}</td>
+      <td>{props.exercise.date.substring(0, 10)}</td>
+      <td>
+        <Group spacing={10}>
+          <ActionIcon
+            variant="transparent"
+            color="#228be6"
+            onClick={() => navigate(`/edit/${props.exercise._id}`)}
+          >
+            <Edit size={16} />
+          </ActionIcon>
+          <div
+            style={{
+              borderLeft: "2px solid #495057",
+              height: "20px",
+            }}
+          ></div>
+          <ActionIcon
+            variant="transparent"
+            color="red"
+            onClick={() => {
+              props.deleteExercise(props.exercise._id);
+            }}
+          >
+            <Trash size={16} />
+          </ActionIcon>
+        </Group>
+      </td>
+    </tr>
+  );
+};
 
 export default class ExercisesList extends Component {
   constructor(props) {
@@ -71,11 +91,16 @@ export default class ExercisesList extends Component {
   render() {
     return (
       <Container>
-        <Text fw={500} fz="xl">
+        <Text fw={500} fz="xl" my={15} color="#228be6">
           Logged Exercises
         </Text>
-        <Table>
-          <thead>
+        <Table
+          verticalSpacing="sm"
+          horizontalSpacing={"xl"}
+          // highlightOnHover={true}
+          striped
+        >
+          <thead style={{ background: "rgb(231 245 255)" }}>
             <tr>
               <th>Username</th>
               <th>Description</th>
